@@ -1,0 +1,27 @@
+<% if (user) { %>
+<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-white">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <strong> 📊 Analytics Dashboard </strong>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/upload">Upload New Data</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/home"> Data Table </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/temporal"> Temporal Customer Engagement </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/demographic"> Demographic Factors for Customer Engagement </a>
+        </li>
+        <li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/logout"> Sign Out </a>
+        </li>
+      </ul>
+</nav>
+<% } %>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <title> Data Table </title>
+      <% include partials/head %>
+   </head>
+   <body>
+    <% include partials/nav %>
+        <div style="margin: 1em;">
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" id="HSHD_NUM" placeholder="HSHD_NUM" aria-label="HSHD_NUM">
+                <button id="hshd-submit" class="btn" type="submit" id="search">Search</button>
+            </form>
+            <table data-toggle="table" data-classes="table table-hover table-responsive table-condensed table-sm" data-striped="true" data-sort-name="Transactions" data-url="x" style="overflow: scroll;">
+                <thead>
+                    <tr style="font-weight: bold;">
+                        <th scope="col" data-sortable="true">BASKET_NUM</th>
+                        <th scope="col" data-sortable="true">HSHD_NUM</th>
+                        <th scope="col" data-sortable="true">L</th>
+                        <th scope="col" data-sortable="true">AGE_RANGE</th>
+                        <th scope="col" data-sortable="true">MARTIAL</th>
+                        <th scope="col" data-sortable="true">INCOME_RANGE</th>
+                        <th scope="col" data-sortable="true">HOMEOWNER</th>
+                        <th scope="col" data-sortable="true">HSHD_COMPOSITION</th>
+                        <th scope="col" data-sortable="true">HH_SIZE</th>
+                        <th scope="col" data-sortable="true">CHILDREN</th>
+                        <th scope="col" data-sortable="true">PURCHASE</th>
+                        <th scope="col" data-sortable="true">PRODUCT_NUM</th>
+                        <th scope="col" data-sortable="true">DEPARTMENT</th>
+                        <th scope="col" data-sortable="true">COMMODITY</th>
+                        <th scope="col" data-sortable="true">BRAND_TY</th>
+                        <th scope="col" data-sortable="true">NATURAL_ORGANIC_FLAG</th>
+                        <th scope="col" data-sortable="true">SPEND</th>
+                        <th scope="col" data-sortable="true">UNITS</th>
+                        <th scope="col" data-sortable="true">STORE_R</th>
+                        <th scope="col" data-sortable="true">WEEK_NUM</th>
+                        <th scope="col" data-sortable="true">YEAR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% transactions.forEach(transaction => { %>
+                        <tr>
+                            <td scope="row"
+                               ><%= transaction.BASKET_NUM %></td>
+                            <td><%= transaction.HSHD_NUM.HSHD_NUM %></td>
+                            <td><%= transaction.HSHD_NUM.L %></td>
+                            <td><%= transaction.HSHD_NUM.AGE_RANGE %></td>
+                            <td><%= transaction.HSHD_NUM.MARITAL %></td>
+                            <td><%= transaction.HSHD_NUM.INCOME_RANGE %></td>
+                            <td><%= transaction.HSHD_NUM.HOMEOWNER %></td>
+                            <td><%= transaction.HSHD_NUM.HSHD_COMPOSITION %></td>
+                            <td><%= transaction.HSHD_NUM.HH_SIZE %></td>
+                            <td><%= transaction.HSHD_NUM.CHILDREN %></td>
+                            <td><%= transaction.PURCHASE_ %></td>
+                            <td><%= transaction.PRODUCT_NUM.PRODUCT_NUM %></td>
+                            <td><%= transaction.PRODUCT_NUM.DEPARTMENT %></td>
+                            <td><%= transaction.PRODUCT_NUM.COMMODITY %></td>
+                            <td><%= transaction.PRODUCT_NUM.BRAND_TY %></td>
+                            <td><%= transaction.PRODUCT_NUM.NATURAL_ORGANIC_FLAG %></td>
+                            <td><%= transaction.SPEND %></td>
+                            <td><%= transaction.UNITS %></td>
+                            <td><%= transaction.STORE_R %></td>
+                            <td><%= transaction.WEEK_NUM %></td>
+                            <td><%= transaction.YEAR %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+   </body>
+   <% include partials/footer %>
+   <script>
+    $(document).ready(function() {
+        $('#hshd-submit').click(function(e) {
+            e.preventDefault();
+            var hshd_num = $('#HSHD_NUM').val();
+            console.log('debug',hshd_num);
+            document.location.href = '/home?id=' + hshd_num;
+        });
+    });
+   </script>
+</html>

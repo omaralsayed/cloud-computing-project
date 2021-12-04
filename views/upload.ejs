@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <title> Upload Data </title>
+      <% include partials/head %>
+   </head>
+   <body>
+    <% include partials/nav %>
+        <div class="row mt-4">
+            <div class="col-md-4 m-auto">
+                <div class="card card-body">
+                    <form action="/upload/data" method="post" autocomplete="off" role="form" encType="multipart/form-data">
+                        <h2 style="margin-bottom: 22px;"> Upload Data </h2>
+                        <% include partials/messages %>
+                        <div class="mb-0 input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"> Upload </span>
+                            </div>
+                            <div class="custom-file">
+                              <input type="file" name="Households" class="custom-file-input" id="Households" required>
+                              <label class="custom-file-label" for="Households"> Households </label>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="mb-0 input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"> Upload </span>
+                            </div>
+                            <div class="custom-file">
+                              <input type="file" name="Transactions" class="custom-file-input" id="Transactions" required>
+                              <label class="custom-file-label" for="Transactions"> Transactions </label>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="mb-0 input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"> Upload </span>
+                            </div>
+                            <div class="custom-file">
+                              <input type="file" name="Products" class="custom-file-input" id="Products" required>
+                              <label class="custom-file-label" for="Products"> Products </label>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <input type="submit" id="submit-file" value="Upload" class="btn">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+   </body>
+   <% include partials/footer %>
+</html>

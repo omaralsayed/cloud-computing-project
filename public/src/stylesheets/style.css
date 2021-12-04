@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box
+}
+
+body {
+  font-family: 'Ubuntu', 'Roboto', 'Roboto Slab', sans-serif;
+  overflow-x: hidden
+}
+
+a {
+  color: #4c6f9c
+}
+
+#alert {
+  margin-top: 2rem
+}
+
+#switch {
+  color: #fff;
+  background-color: #4c6f9c !important
+}
+
+.btn {
+  color: #fff;
+  background-color: #4c6f9c !important
+}
+
+.alert-heading {
+  font-size: 1.25rem;
+  font-weight: 400
+}
+
+.container {
+  background-color: #fff;
+  margin: 5%;
+  padding: 2%
+}

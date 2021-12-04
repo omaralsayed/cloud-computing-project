@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <title> Sign In Page </title>
+      <% include partials/head %>
+   </head>
+   <body>
+      <% include partials/nav %>
+      <form method="post" action="/users/login" autocomplete="off">
+         <div class="row mt-5">
+            <div class="col-md-4 m-auto">
+               <div class="card card-body">
+                  <h2 style="margin-bottom: 22px;"> Sign In </h2>
+                  <% include partials/messages %>
+                  <div class="controls">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="form-group">
+                              <input type="name" id="name" name="name" placeholder="Username" class="form-control" value="test">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="form-group">
+                              <input type="password" id="password" name="password" placeholder="Password" class="form-control" value="testtest">
+                           </div>
+                        </div>
+                        <div class="col-md-12">
+                           <input type="submit" class="btn btn-send" value="Sign In">
+                           <a class="btn" id="switch" href="/users/register"> Register </a>
+                           <br><br>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </form>
+   </body>
+   <% include partials/footer %>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "big-data",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Omar Alsayed",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "connect-multiparty": "^2.2.0",
+    "csv-parser": "^3.0.0",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "express-session": "^1.17.2",
+    "faker": "^5.5.3",
+    "mongoose": "^5.13.9",
+    "nodemon": "^2.0.15",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "password-validator": "^5.1.1",
+    "pm2": "^5.1.2"
+  }
+}
