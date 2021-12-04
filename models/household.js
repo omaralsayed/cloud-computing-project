@@ -5,15 +5,15 @@ const householdSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    LOYALTY_FLAG: {
-        type: Boolean,
+    L: {
+        type: String,
         required: false
     },
     AGE_RANGE: {
         type: String,
         required: false
     },
-    MARITAL_STATUS: {
+    MARITAL: {
         type: String,
         required: false
     },
@@ -21,7 +21,7 @@ const householdSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    HOMEOWNER_DESC: {
+    HOMEOWNER: {
         type: String,
         required: false
     },
@@ -29,7 +29,7 @@ const householdSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    HSHD_SIZE: {
+    HH_SIZE: {
         type: String,
         required: false
     },

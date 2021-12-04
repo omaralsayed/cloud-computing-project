@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const csv = require('csv-parser');
+const csv = require('csvtojson');
 const fs = require('fs');
 
 const Transaction = require('../models/transaction');
+const Household = require('../models/household');
+const Product = require('../models/product');
+
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
 router.get('/', forwardAuthenticated, (req, res) => {
@@ -17,9 +20,9 @@ router.get('/home', ensureAuthenticated, (req, res) => {
     id = req.query.id;
   }
   Transaction.aggregate([
-    { 
-      $match: { 
-        'HSHD_NUM': parseInt(id) 
+    {
+      $match: {
+        'HSHD_NUM': parseInt(id)
       }
     },
     {
@@ -32,7 +35,7 @@ router.get('/home', ensureAuthenticated, (req, res) => {
     },
     {
       $unwind: {
-        path: '$HSHD_NUM', 
+        path: '$HSHD_NUM',
         preserveNullAndEmptyArrays: false
       }
     },
@@ -50,18 +53,14 @@ router.get('/home', ensureAuthenticated, (req, res) => {
         preserveNullAndEmptyArrays: false
       }
     },
-    // {
-    //   // TODO: Verify ORDER BY
-    //   $sort: {
-    //     'HSHD_NUM.BASKET_NUM': 1,
-    //     'PURCHASE': 1,
-    //     'PRODUCT_NUM.PRODUCT_NUM': 1,
-    //     'PRODUCT_NUM.DEPARTMENT': 1,
-    //     'PRODUCT_NUM.COMMODITY': 1
-    //   }
-    // },
     {
-      $limit: 100
+      $sort: {
+        'HSHD_NUM.BASKET_NUM': 1,
+        'PURCHASE': 1,
+        'PRODUCT_NUM.PRODUCT_NUM': 1,
+        'PRODUCT_NUM.DEPARTMENT': 1,
+        'PRODUCT_NUM.COMMODITY': 1
+      }
     }
   ], (err, transactions) => {
     if (err) {
@@ -96,13 +95,6 @@ router.post('/upload/data', ensureAuthenticated, (req, res) => {
   let households = req.files.Households;
   let products = req.files.Products;
 
-  for (let file of [transactions, households, products]) {
-    if (file.mimetype !== 'text/csv') {
-      req.flash('fail', 'File type not supported.');
-      return res.redirect('/upload');
-    }
-  }
-
   transactions.mv(`${__dirname}/../temp/transactions.csv`, (err) => {
     if (err) {
       console.log(err);
@@ -124,44 +116,106 @@ router.post('/upload/data', ensureAuthenticated, (req, res) => {
     }
   });
 
+  csv().fromFile(`${__dirname}/../temp/transactions.csv`)
+    .then((transactions) => {
+      Transaction.insertMany(transactions, (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('All records inserted - Transactions');
+        }
+      });
+    });
+
+  csv().fromFile(`${__dirname}/../temp/households.csv`)
+    .then((households) => {
+      Household.insertMany(households, (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('All records inserted - Households');
+        }
+      });
+    });
+
+  csv().fromFile(`${__dirname}/../temp/products.csv`)
+    .then((products) => {
+      Product.insertMany(products, (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('All records inserted - Products');
+        }
+      });
+    });
+
   req.flash('success', 'Files uploaded successfully!');
   res.redirect('/upload');
 });
 
-router.get('/test/todb', ensureAuthenticated, (req, res) => {
-  let tArray = [];
-  let hArray = [];
-  let pArray = [];
-  
-  fs.createReadStream(`${__dirname}/../temp/transactions.csv`)
-   .pipe(csv())
-   .on('data', (row) => {
-      console.log(row);
-      tArray.push(row);
-    })
-   .on('end', () => {
-     console.log('transactions.csv successfully processed...');
+router.get('/prepare/clear', (req, res) => {
+  Transaction.deleteMany({}, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('All records deleted - Transactions');
+    }
   });
 
-  fs.createReadStream(`${__dirname}/../temp/households.csv`)
-  .pipe(csv())
-  .on('data', (row) => {
-    console.log(row);
-    hArray.push(row);
-  })
-  .on('end', () => {
-    console.log('households.csv successfully processed...');
+  Household.deleteMany({}, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('All records deleted - Households');
+    }
   });
 
-  fs.createReadStream(`${__dirname}/../temp/products.csv`)
-  .pipe(csv())
-  .on('data', (row) => {
-    console.log(row);
-    pArray.push(row);
-  })
-  .on('end', () => {
-    console.log('products.csv successfully processed...');
+  Product.deleteMany({}, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('All records deleted - Products');
+    }
   });
+
+  res.status(200).send('Cleared');
+});
+
+router.get('/prepare/build', (req, res) => {
+  csv().fromFile(`${__dirname}/../data/400_transactions.csv`)
+    .then((transactions) => {
+      Transaction.insertMany(transactions, (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('All records inserted - Transactions');
+        }
+      });
+    });
+
+  csv().fromFile(`${__dirname}/../data/400_households.csv`)
+    .then((households) => {
+      Household.insertMany(households, (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('All records inserted - Households');
+        }
+      });
+    });
+
+  csv().fromFile(`${__dirname}/../data/400_products.csv`)
+    .then((products) => {
+      Product.insertMany(products, (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('All records inserted - Products');
+        }
+      });
+    });
+
+  res.status(200).send('Data prepared');
 });
 
 module.exports = router;

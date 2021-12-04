@@ -9,8 +9,8 @@ const transactionSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
-    DATE: {
-        type: Date,
+    PURCHASE_: {
+        type: String,
         required: false
     },
     PRODUCT_NUM: {
@@ -25,7 +25,7 @@ const transactionSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    STORE_REGION: {
+    STORE_R: {
         type: String,
         required: false
     },
@@ -33,7 +33,7 @@ const transactionSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
-    YEAR_NUM: {
+    YEAR: {
         type: Number,
         required: false
     }

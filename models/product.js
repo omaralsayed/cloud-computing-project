@@ -13,11 +13,11 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    BRAND_TYPE: {
+    BRAND_TY: {
         type: String,
         required: false
     },
-    NATURAL_FLAG: {
+    NATURAL_ORGANIC_FLAG: {
         type: String,
         required: false
     }

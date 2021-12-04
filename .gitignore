@@ -1,5 +1,6 @@
 config/keys.js
 temp
+data
 
 # Git
 *.orig
