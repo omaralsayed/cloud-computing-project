@@ -55,8 +55,8 @@ router.get('/home', ensureAuthenticated, (req, res) => {
     },
     {
       $sort: {
-        'HSHD_NUM.BASKET_NUM': 1,
-        'PURCHASE': 1,
+        'BASKET_NUM': 1,
+        'PURCHASE_': 1,
         'PRODUCT_NUM.PRODUCT_NUM': 1,
         'PRODUCT_NUM.DEPARTMENT': 1,
         'PRODUCT_NUM.COMMODITY': 1
@@ -91,32 +91,7 @@ router.post('/upload/data', ensureAuthenticated, (req, res) => {
     return res.status(400).send('No files were uploaded.');
   }
 
-  let transactions = req.files.Transactions;
-  let households = req.files.Households;
-  let products = req.files.Products;
-
-  transactions.mv(`${__dirname}/../temp/transactions.csv`, (err) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).send(err);
-    }
-  });
-
-  households.mv(`${__dirname}/../temp/households.csv`, (err) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).send(err);
-    }
-  });
-
-  products.mv(`${__dirname}/../temp/products.csv`, (err) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).send(err);
-    }
-  });
-
-  csv().fromFile(`${__dirname}/../temp/transactions.csv`)
+  csv().fromString(req.files.Transactions.data.toString())
     .then((transactions) => {
       Transaction.insertMany(transactions, (err) => {
         if (err) {
@@ -127,7 +102,7 @@ router.post('/upload/data', ensureAuthenticated, (req, res) => {
       });
     });
 
-  csv().fromFile(`${__dirname}/../temp/households.csv`)
+  csv().fromString(req.files.Households.data.toString())
     .then((households) => {
       Household.insertMany(households, (err) => {
         if (err) {
@@ -138,7 +113,7 @@ router.post('/upload/data', ensureAuthenticated, (req, res) => {
       });
     });
 
-  csv().fromFile(`${__dirname}/../temp/products.csv`)
+  csv().fromString(req.files.Products.data.toString())
     .then((products) => {
       Product.insertMany(products, (err) => {
         if (err) {

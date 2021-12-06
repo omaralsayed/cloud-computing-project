@@ -51,4 +51,20 @@
         </div>
    </body>
    <% include partials/footer %>
+   <script>
+        $(document).ready(function(){
+            $('#Households').on('change',function(){
+                var fileName = $(this).val();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+            $('#Transactions').on('change',function(){
+                var fileName = $(this).val();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+            $('#Products').on('change',function(){
+                var fileName = $(this).val();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+        });
+   </script>
 </html>
