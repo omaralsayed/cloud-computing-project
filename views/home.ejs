@@ -6,20 +6,20 @@
    </head>
    <body>
     <% include partials/nav %>
-        <div style="margin: 1em;">
+        <div style="margin: .5em;">
             <form class="form-inline m-2">
                 <input class="form-control mr-sm-2" type="search" id="HSHD_NUM" placeholder="HSHD_NUM" aria-label="HSHD_NUM">
                 <button id="hshd-submit" class="btn" type="submit" id="search">Search</button>
             </form>
-            <table class="table table-hover table-striped">
+            <table class="table table-hover table-striped table-bordered table-sm">
                 <thead>
                     <tr style="font-weight: bold;">
-                        <th scope="col">BASKET_NUM</th>
                         <th scope="col">HSHD_NUM</th>
+                        <th scope="col">BASKET_NUM</th>
                         <th scope="col">L</th>
-                        <th scope="col">AGE_RANGE</th>
+                        <th scope="col">AGE</th>
                         <th scope="col">MARTIAL</th>
-                        <th scope="col">INCOME_RANGE</th>
+                        <th scope="col">INCOME</th>
                         <th scope="col">HOMEOWNER</th>
                         <th scope="col">HSHD_COMPOSITION</th>
                         <th scope="col">HH_SIZE</th>
@@ -40,9 +40,8 @@
                 <tbody>
                     <% transactions.forEach(transaction => { %>
                         <tr>
-                            <td scope="row"
-                               ><%= transaction.BASKET_NUM %></td>
                             <td><%= transaction.HSHD_NUM.HSHD_NUM %></td>
+                            <td><%= transaction.BASKET_NUM %></td>
                             <td><%= transaction.HSHD_NUM.L %></td>
                             <td><%= transaction.HSHD_NUM.AGE_RANGE %></td>
                             <td><%= transaction.HSHD_NUM.MARITAL %></td>

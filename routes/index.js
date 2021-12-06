@@ -153,6 +153,7 @@ router.post('/upload/data', ensureAuthenticated, (req, res) => {
   res.redirect('/upload');
 });
 
+/*
 router.get('/prepare/clear', (req, res) => {
   Transaction.deleteMany({}, (err) => {
     if (err) {
@@ -217,5 +218,6 @@ router.get('/prepare/build', (req, res) => {
 
   res.status(200).send('Data prepared');
 });
+*/
 
 module.exports = router;
